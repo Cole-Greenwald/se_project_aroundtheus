@@ -26,6 +26,13 @@
   width: 24px;
   height: 24px;
   grid-area: button;
+  border: 2px;
+  border-style: solid;
+  border-color: #fff;
+}
+
+.profile__edit-button:hover {
+  opacity: 60%;
 }
 
 .profile__add-button {
@@ -33,11 +40,18 @@
   width: 150px;
   height: 50px;
   margin-left: auto;
+  border: 2px;
+  border-style: solid;
+  border-color: #fff;
+}
+
+.profile__add-button:hover {
+  opacity: 60%;
 }
 
 .profile__title {
-  font-family: Inter, Arial, Sans-serif;
-  font-size: 42px;
+  font-family: "Inter", Arial, Sans-serif;
+  font-size: 41px;
   font-weight: 500;
   line-height: 48px;
   grid-area: title;
@@ -45,9 +59,91 @@
 }
 
 .profile__description {
-  font-family: Inter, Arial, sans-serif;
+  font-family: "Inter", Arial, sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
   margin: 0;
+  grid-area: description;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 373px;
+}
+
+@media screen and (max-width: 700px) {
+  .profile__add-button {
+    width: 50px;
+    height: 50px;
+    margin: 0 20px;
+    max-width: calc(100%-40px);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .profile {
+    flex-direction: column;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .profile__description {
+    width: 100%;
+    text-align: center;
+  }
+
+  .profile__add-button {
+    margin: 0;
+    width: 100%;
+  }
+
+  .profile__edit-button {
+    margin-left: 10px;
+    width: 18px;
+    height: 18px;
+    justify-content: center;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  .profile {
+    flex-direction: column;
+  }
+
+  .profile__info {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .profile__title {
+    max-width: 196px;
+    font-size: 22px;
+    font-weight: 500;
+    font-family: Inter, Arial, sans-serif;
+  }
+
+  .profile__description {
+    font-weight: 400;
+    font-family: Inter, Arial, sans-serif;
+    font-size: 14px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .profile__add-button {
+    margin: 0;
+    width: 100%;
+  }
+
+  .header__image {
+    width: 126px;
+    height: 24px;
+  }
 }

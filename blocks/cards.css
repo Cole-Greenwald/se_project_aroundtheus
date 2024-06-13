@@ -1,5 +1,8 @@
 .cards {
-  /* fonts */
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
   margin-top: 30px;
 }
 
@@ -38,6 +41,18 @@
   justify-content: space-between;
 }
 
+.card__title {
+  max-width: 220px;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+}
+
 .card__like-button {
   background: transparent url(../images/like-button.svg) center no-repeat;
   width: 21px;
@@ -45,25 +60,6 @@
   border: none;
 }
 
-@media screen and (max-width: 480px) {
-  .profile {
-    flex-direction: column;
-  }
-
-  .profile__info {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    width: 100%;
-  }
-
-  .profile__description {
-    width: 100%;
-    text-align: center;
-  }
-
-  .profile__add-button {
-    margin: 0;
-    width: 100%;
-  }
+.card__like-button:hover {
+  opacity: 60%;
 }

@@ -2,3 +2,8 @@
   margin-top: 45px;
   max-width: 880px;
 }
+
+.header__image {
+  width: 173px;
+  height: 33px;
+}
