@@ -37,7 +37,7 @@
 }
 
 .profile__add-button {
-  background: transparent url(../images/Add-Button.svg) center no-repeat;
+  background: transparent url(../images/add-button-3.svg) center no-repeat;
   width: 150px;
   height: 50px;
   margin-left: auto;
@@ -100,6 +100,7 @@
   .profile__description {
     width: 100%;
     text-align: center;
+    font-size: 14px;
   }
 
   .profile__edit-button {
@@ -107,10 +108,6 @@
     width: 18px;
     height: 18px;
     justify-content: center;
-  }
-
-  .profile__image {
-    margin: 0;
   }
 }
 
@@ -125,13 +122,15 @@
   }
 
   .profile__add-button {
-    margin: 0;
+    margin: 36px 19px;
     width: 100%;
     border: none;
   }
 
-  .header__image {
+  .profile__image {
+    margin: 0;
     width: 126px;
-    height: 24px;
+    height: 126px;
+    padding-top: 2px;
   }
 }
