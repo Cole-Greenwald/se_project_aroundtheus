@@ -1,8 +1,14 @@
+.cards {
+  font-family: "Inter", Arial, sans-serif;
+  padding: 36px 0 0;
+}
+
 .cards__list {
   display: grid;
-  justify-content: center;
   grid-template-columns: repeat(auto-fit, 282px);
   grid-gap: 20px 17px;
-  padding: 0;
+  list-style-type: none;
   margin: 0;
+  padding: 0;
+  justify-content: center;
 }
