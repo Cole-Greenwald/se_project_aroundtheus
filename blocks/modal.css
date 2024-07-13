@@ -144,16 +144,32 @@
     height: 322px;
     padding: 25px 22px;
   }
+  .modal__close {
+    width: 26px;
+    height: 26px;
+    left: calc(100% - 35px);
+    bottom: calc(100% + 26px);
+  }
+  .modal__button {
+    width: 238px;
+    height: 46px;
+  }
+  .modal__heading {
+    padding-bottom: 75px;
+    margin: 0;
+  }
+
   .modal__image-caption {
     max-width: 240px;
     max-height: 299px;
   }
-  #modal-close-button {
+
+  #preview-close-button {
     position: fixed;
     width: 30px;
     height: 30px;
-    top: 230px;
-    left: 280px;
+    top: 210px;
+    left: 285px;
   }
   .modal__preview-image {
     width: 240px;

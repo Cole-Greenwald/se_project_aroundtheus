@@ -49,7 +49,7 @@ const cardTemplate =
 const previewImageModal = document.querySelector("#preview-image-modal");
 const previewModalImage = document.querySelector(".modal__preview-image");
 const previewCloseModal = previewImageModal.querySelector(
-  "#modal-close-button"
+  "#preview-close-button"
 );
 const previewCaption = document.querySelector(".modal__image-caption");
 
@@ -79,13 +79,13 @@ function handleAddCardFormSubmit(e) {
   const link = cardUrlInput.value;
   rederCard({ name, link }, cardListEl);
   closePopup(addCardModal);
+  e.target.reset();
 }
 
 function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
-  const cardAltEl = cardElement.querySelector(".card__image");
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
@@ -106,7 +106,7 @@ function getCardElement(cardData) {
 
   cardImageEl.src = cardData.link;
   cardTitleEl.textContent = cardData.name;
-  cardAltEl.alt = cardData.name;
+  cardImageEl.alt = cardData.name;
 
   return cardElement;
 }
