@@ -57,13 +57,34 @@ function closePopup(modal) {
   modal.classList.remove("modal_opened");
 }
 
-function rederCard(cardData, wrapper) {
-  const cardElement = getCardElement(cardData);
-  wrapper.prepend(cardElement);
+function closePopupEsc(e) {
+  if (e.key === "Escape") {
+    const modalOpened = document.querySelector(".modal_opened");
+    closePopup(modalOpened);
+  }
+}
+
+function closePopupOverlay(e) {
+  if (e.target === e.currentTarget) {
+    closePopup(e.currentTarget);
+  }
 }
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", closePopupEsc);
+  modal.addEventListener("mousedown", closePopupOverlay);
+}
+
+function closePopup(modal) {
+  modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", closePopupEsc);
+  modal.removeEventListener("mousedown", closePopupOverlay);
+}
+
+function rederCard(cardData, wrapper) {
+  const cardElement = getCardElement(cardData);
+  wrapper.prepend(cardElement);
 }
 
 function handleProfileEditSubmit(e) {

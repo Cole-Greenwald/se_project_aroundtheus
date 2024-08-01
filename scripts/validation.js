@@ -1,5 +1,3 @@
-//----Input Error Functions--------
-
 function showInputError(
   formElement,
   inputElement,
@@ -26,8 +24,6 @@ function hideInputError(
   errorMessageElement.classList.remove(errorClass);
 }
 
-//------Validity Functions-----
-
 function checkInputValidity(formElement, inputElement, options) {
   if (!inputElement.validity.valid) {
     return showInputError(formElement, inputElement, options);
@@ -47,8 +43,6 @@ function toggleButtonState(inputElements, submitButton, config) {
   }
 }
 
-//---Button Functions-----
-
 function enableButtton(submitButton, config) {
   const { inactiveButtonClass } = config;
   submitButton.classList.add(inactiveButtonClass);
@@ -63,8 +57,6 @@ function disableButton(submitButton, config) {
   return;
 }
 
-//-------Event Listeners--------
-
 function setEventListners(formElement, options) {
   const { inputSelector, submitButtonSelector } = options;
   const inputElements = Array.from(formElement.querySelectorAll(inputSelector));
@@ -76,8 +68,6 @@ function setEventListners(formElement, options) {
     });
   });
 }
-
-//-----Enable Validation--------
 
 function enableValidation(options) {
   const formElements = Array.from(

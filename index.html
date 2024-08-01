@@ -51,30 +51,26 @@
         <button class="modal__close" id="modal-close-button"></button>
         <p class="modal__heading">New Place</p>
         <form class="modal__form" id="add-card-form">
-          <label for="" class="popup__label">
-            <input
-              class="modal__input"
-              type="text"
-              name="title"
-              placeholder="Title"
-              id="card-title-input"
-              minlength="1"
-              maxlength="30"
-              required
-            />
-            <span class="modal__error" id="card-title-input-error"></span>
-          </label>
-          <label for="" class="popup__label">
-            <input
-              class="modal__input"
-              type="text"
-              name="Url"
-              placeholder="Image Url"
-              id="card-url-input"
-              required
-            />
-            <span class="modal__error" id="card-url-input-error"></span>
-          </label>
+          <input
+            class="modal__input"
+            type="text"
+            name="title"
+            placeholder="Title"
+            id="card-title-input"
+            minlength="1"
+            maxlength="30"
+            required
+          />
+          <span class="modal__error" id="card-title-input-error"></span>
+          <input
+            class="modal__input"
+            type="text"
+            name="Url"
+            placeholder="Image Url"
+            id="card-url-input"
+            required
+          />
+          <span class="modal__error" id="card-url-input-error"></span>
           <button class="modal__button" type="submit">Create</button>
         </form>
       </div>
@@ -84,35 +80,31 @@
         <button class="modal__close" id="modal-close-button"></button>
         <p class="modal__heading">Edit Profile</p>
         <form class="modal__form" id="profile-edit-form">
-          <label for="" class="popup__label">
-            <input
-              class="modal__input"
-              type="text"
-              name="title"
-              placeholder="Name"
-              id="profile-title-input"
-              required
-              maxlength="40"
-              minlength="2"
-            />
-            <span class="modal__error" id="profile-title-input-error"></span>
-          </label>
-          <label for="" class="popup__label">
-            <input
-              class="modal__input"
-              type="text"
-              name="description"
-              placeholder="Description"
-              id="profile-description-input"
-              required
-              maxlength="200"
-              minlength="2"
-            />
-            <span
-              class="modal__error"
-              id="profile-description-input-error"
-            ></span>
-          </label>
+          <input
+            class="modal__input"
+            type="text"
+            name="title"
+            placeholder="Name"
+            id="profile-title-input"
+            required
+            maxlength="40"
+            minlength="2"
+          />
+          <span class="modal__error" id="profile-title-input-error"></span>
+          <input
+            class="modal__input"
+            type="text"
+            name="description"
+            placeholder="Description"
+            id="profile-description-input"
+            required
+            maxlength="200"
+            minlength="2"
+          />
+          <span
+            class="modal__error"
+            id="profile-description-input-error"
+          ></span>
           <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
