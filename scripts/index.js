@@ -53,10 +53,6 @@ const previewCloseModal = previewImageModal.querySelector(
 );
 const previewCaption = document.querySelector(".modal__image-caption");
 
-function closePopup(modal) {
-  modal.classList.remove("modal_opened");
-}
-
 function closePopupEsc(e) {
   if (e.key === "Escape") {
     const modalOpened = document.querySelector(".modal_opened");

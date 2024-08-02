@@ -76,6 +76,10 @@
   font-family: Inter, Arial, sans-serif;
 }
 
+.modal__input_type_error {
+  border-bottom: 1px solid #ff0000;
+}
+
 .modal__button {
   color: #fff;
   background-color: #000;
@@ -117,8 +121,10 @@
 }
 
 .modal__preview-image {
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: cover;
+  display: flex;
 }
 
 .modal__image-caption {
@@ -172,9 +178,9 @@
 @media screen and (max-width: 320px) {
   .modal__container {
     width: 282px;
-    height: 322px;
     padding: 25px 22px;
   }
+
   .modal__close {
     width: 26px;
     height: 26px;
@@ -184,10 +190,15 @@
   .modal__button {
     width: 238px;
     height: 46px;
+    font-size: 14px;
   }
   .modal__heading {
     padding-bottom: 75px;
     margin: 0;
+    width: 238px;
+    height: 22px;
+    font-size: 18px;
+    line-height: 21.78px;
   }
 
   .modal__image-caption {
