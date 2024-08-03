@@ -93,6 +93,13 @@
   border-radius: 2px;
 }
 
+.modal__button_disabled {
+  opacity: 0.2;
+  color: #000;
+  background-color: transparent;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
 .modal__button:hover {
   opacity: 60%;
   cursor: pointer;
@@ -145,6 +152,7 @@
   line-height: 14.52px;
   position: absolute;
   transition: opacity 0.3s;
+  margin-bottom: 10px;
 }
 
 .modal__error:first-of-type {
