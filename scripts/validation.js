@@ -24,10 +24,6 @@ function hideInputError(
   errorMessageElement.classList.remove(errorClass);
 }
 
-// I am confused by your last commment because the error message
-// is as close to the input as I can get it. Please ellaborate on (not on this line)
-// thank you
-
 function checkInputValidity(formElement, inputElement, options) {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, options);
