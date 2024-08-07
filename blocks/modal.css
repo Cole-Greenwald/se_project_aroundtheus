@@ -155,11 +155,11 @@
 }
 
 .modal__error:first-of-type {
-  bottom: calc(53%);
+  bottom: calc(50%);
 }
 
 .modal__error:last-of-type {
-  bottom: calc(35%);
+  bottom: calc(32%);
 }
 
 .modal__error_visible {
