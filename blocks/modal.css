@@ -152,15 +152,14 @@
   line-height: 14.52px;
   position: absolute;
   transition: opacity 0.3s;
-  margin-bottom: 10px;
 }
 
 .modal__error:first-of-type {
-  bottom: calc(50%);
+  bottom: calc(53%);
 }
 
 .modal__error:last-of-type {
-  bottom: calc(32%);
+  bottom: calc(35%);
 }
 
 .modal__error_visible {
