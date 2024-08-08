@@ -224,4 +224,11 @@
     width: 240px;
     height: 299px;
   }
+  .modal__error:first-of-type {
+    bottom: calc(48%);
+  }
+
+  .modal__error:last-of-type {
+    bottom: calc(30%);
+  }
 }
