@@ -1,3 +1,5 @@
+//----Input Error Functions--------
+
 function showInputError(
   formElement,
   inputElement,
@@ -24,13 +26,15 @@ function hideInputError(
   errorMessageElement.classList.remove(errorClass);
 }
 
+//------Validity Functions-----
+
 function checkInputValidity(formElement, inputElement, options) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, options);
-  } else {
-    hideInputError(formElement, inputElement, options);
+    return showInputError(formElement, inputElement, options);
   }
+  hideInputError(formElement, inputElement, options);
 }
+
 function hasInvalidInputs(inputList) {
   return !inputList.every((inputElement) => inputElement.validity.valid);
 }
@@ -42,6 +46,8 @@ function toggleButtonState(inputElements, submitButton, config) {
     disableButton(submitButton, config);
   }
 }
+
+//---Button Functions-----
 
 function enableButtton(submitButton, config) {
   const { inactiveButtonClass } = config;
@@ -57,6 +63,8 @@ function disableButton(submitButton, config) {
   return;
 }
 
+//-------Event Listeners--------
+
 function setEventListners(formElement, options) {
   const { inputSelector, submitButtonSelector } = options;
   const inputElements = Array.from(formElement.querySelectorAll(inputSelector));
@@ -64,10 +72,12 @@ function setEventListners(formElement, options) {
   inputElements.forEach((inputElement) => {
     inputElement.addEventListener("input", (e) => {
       checkInputValidity(formElement, inputElement, options);
-      toggleButtonState(inputElements, submitButton, options); //toggleButtonState was already in the code
+      toggleButtonState(inputElements, submitButton, options);
     });
   });
 }
+
+//-----Enable Validation--------
 
 function enableValidation(options) {
   const formElements = Array.from(
