@@ -141,15 +141,20 @@ function handleAddCardFormSubmit(e) {
   renderCard({ name, link }, cardsWrap);
   e.target.reset();
   closePopup(addCardModal);
-  addCardValidator.resetValidation();
+  //addCardValidator.resetValidation();
   addCardValidator.disableSubmitButton();
 }
 
 function handleImageClick(cardData) {
-  modalImage.src = cardData.link;
-  modalImage.alt = cardData.name;
-  modalImageCaption.textContent = cardData.name;
-  openModal(pictureModal);
+  console.log(cardData); // Log to ensure the correct data is received
+  if (cardData && cardData.link && cardData.name) {
+    modalImage.src = cardData.link;
+    modalImage.alt = cardData.name;
+    modalImageCaption.textContent = cardData.name;
+    openModal(pictureModal);
+  } else {
+    console.error("Image link or name is missing in cardData");
+  }
 }
 
 // Event Listeners
