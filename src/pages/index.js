@@ -80,10 +80,12 @@ function handleProfileEditSubmit(formData) {
 }
 
 function handleAddCardFormSubmit(inputValues) {
+  console.log(inputValues);
   const name = inputValues.title;
-  const link = inputValues.url;
-  const cardData = { name: name, link: link };
+  const link = inputValues.Url;
+  const cardData = { name, link };
   cardListEl.addItem(createCard(cardData));
+  console.log(cardData);
   addCardPopup.close();
   addCardFormElement.reset();
 }
