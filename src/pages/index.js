@@ -25,7 +25,7 @@ import {
   avatarEditForm,
 } from "../utils/constants.js";
 import Api from "../components/Api.js";
-import ModalConfirmation from "../components/ModalConfirmation.js";
+import PopupConfirmation from "../components/PopupConfirmation.js";
 
 const editFormValidator = new FormValidator(config, profileEditForm);
 const addFormValidator = new FormValidator(config, addCardFormElement);
@@ -46,13 +46,18 @@ function createCard(item) {
   return card.getView();
 }
 
-function renderCard(cardData) {
-  const card = createCard(cardData);
-  section.addItems(card);
-}
+const cardListEl = new Section(
+  {
+    items: initialCards,
+    renderer: (data) => {
+      cardListEl.addItem(createCard(data));
+    },
+  },
 
-// Cards and Info
-let section;
+  ".cards__list"
+);
+
+cardListEl.renderItems();
 
 api
   .getInitialCards()
@@ -90,32 +95,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   initialize();
 });
-
-cardListEl.renderItems();
-
-const userInfo = new UserInfo({
-  nameSelector: ".profile__title",
-  descriptionSelector: ".profile__description",
-  avatarSelector: ".profile__image",
-});
-
-// Api
-const api = new Api({
-  baseUrl: "https://around-api.en.tripleten-services.com/v1",
-  headers: {
-    authorization: "5e5b90ea-821d-446b-94c8-bd552c31d690",
-    "Content-Type": "application/json",
-  },
-});
-
 const cardImageModal = new PopupWithImage("#preview-image-modal");
 cardImageModal.setEventListeners();
 
 function handleImageClick(cardData) {
   cardImageModal.open(cardData);
 }
-
-const deleteModalConfirmation = new ModalConfirmation(
+const deleteModalConfirmation = new PopupConfirmation(
   "#modal-confirm",
   (cardId, cardElement) => {
     return api
@@ -157,40 +143,18 @@ function handleLikeClick(card) {
   }
 }
 
-// ModalWithForm
-// Update Profile
-const profileEditModal = new ModalWithForm("#profile-edit-modal", (data) => {
-  return api
-    .updateUserProfile({
-      name: data.title,
-      about: data.description,
-    })
-    .then(() => {
-      userInfo.setUserInfo({
-        title: data.title,
-        description: data.description,
-      });
-      profileEditModal.close();
-    });
-});
-profileEditModal.setEventListeners();
+const addCardPopup = new PopupWithForm(
+  "#add-card-modal",
+  handleAddCardFormSubmit
+);
+addCardPopup.setEventListeners();
 
-// Add Card
-const addCardModal = new ModalWithForm("#add-card-modal", (data) => {
-  const name = data.title.trim();
-  const link = data.url.trim();
+const editProfilePopup = new PopupWithForm(
+  "#profile-edit-modal",
+  handleProfileEditSubmit
+);
+editProfilePopup.setEventListeners();
 
-  return api.createCard({ name, link }).then((res) => {
-    renderCard(res);
-    addCardModal.close();
-
-    addCardFormElement.reset();
-  });
-});
-
-addCardModal.setEventListeners();
-
-// Update Avatar
 const editAvatarModal = new ModalWithForm("#edit-avatar-modal", (formData) => {
   const avatarUrl = formData.avatar;
   return api
@@ -209,69 +173,32 @@ editAvatarButton.addEventListener("click", () => {
   editAvatarModal.setEventListeners();
 });
 
-// ModalWithImage
-const cardImageModal = new ModalWithImage("#card-image-modal");
-cardImageModal.setEventListeners();
-
-/* Functions */
-function handleImageClick(link, name) {
-  cardImageModal.open({ link, name });
+function handleProfileEditSubmit(formData) {
+  userInfo.setUserInfo({
+    name: formData.title,
+    description: formData.description,
+  });
+  editProfilePopup.close();
 }
 
-const deleteModalConfirmation = new ModalConfirmation(
-  "#modal-confirm",
-  (cardId, cardElement) => {
-    return api
-      .deleteCard(cardId)
-      .then(() => {
-        cardElement.remove();
-      })
-      .catch((err) => {
-        console.error(`Error On Card Deletion ${err}`);
-      });
-  }
-);
-
-function handleDeleteCard(cardId, cardElement) {
-  deleteModalConfirmation.open(cardId, cardElement);
+function handleAddCardFormSubmit(inputValues) {
+  console.log(inputValues);
+  const name = inputValues.title;
+  const link = inputValues.Url;
+  const cardData = { name, link };
+  cardListEl.addItem(createCard(cardData));
+  console.log(cardData);
+  addCardPopup.close();
+  addCardFormElement.reset();
 }
-
-function handleLikeClick(card) {
-  if (card._isLiked) {
-    api
-      .dislikeCard(card._id)
-      .then(() => {
-        card.toggleLike();
-        card._isLiked = false;
-      })
-      .catch((err) => {
-        console.error(`Error on Card Dislike ${err}`);
-      });
-  } else {
-    api
-      .likeCard(card._id)
-      .then(() => {
-        card.toggleLike();
-        card._isLiked = true;
-      })
-      .catch((err) => {
-        console.error(`Error on Card Like ${err}`);
-      });
-  }
-}
-
-// Form Listeners
 
 profileEditButton.addEventListener("click", () => {
-  const userData = userInfo.getUserInfo();
-  profileTitleInput.value = userData.title.trim();
-  profileDescriptionInput.value = userData.description.trim();
-  editFormValidator.resetValidation();
-  profileEditModal.open();
+  const currentUserInfo = userInfo.getUserInfo();
+  profileTitleInput.value = currentUserInfo.name;
+  profileDescriptionInput.value = currentUserInfo.description;
+  editProfilePopup.open();
 });
 
-// add new card
 addNewCardButton.addEventListener("click", () => {
-  addFormValidator.resetValidation();
-  addCardModal.open();
+  addCardPopup.open();
 });

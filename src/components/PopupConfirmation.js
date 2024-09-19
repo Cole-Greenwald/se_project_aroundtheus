@@ -1,9 +1,8 @@
 import Popup from "./Popup.js";
 
-// Creating a popup for deleting a card
 export default class PopupConfirmation extends Popup {
-  constructor(modalSelector, handleConfirmation) {
-    super({ modalSelector });
+  constructor(popupSelector, handleConfirmation) {
+    super({ popupSelector });
     this._confirmButton = document.querySelector("#confirmation-modal");
     this._handleConfirmation = handleConfirmation;
     this._setEventListeners();
