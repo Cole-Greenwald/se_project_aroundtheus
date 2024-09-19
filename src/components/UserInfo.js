@@ -23,9 +23,3 @@ export default class UserInfo {
     this._avatarElement.src = avatarUrl;
   }
 }
-
-const userInfo = new UserInfo({
-  title: ".profile__title",
-  description: ".profile__description",
-  avatarSelector: ".profile__image",
-});

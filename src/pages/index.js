@@ -35,6 +35,14 @@ editFormValidator.enableValidation();
 addFormValidator.enableValidation();
 avatarFormValidator.enableValidation();
 
+const api = new Api({
+  baseUrl: "https://around-api.en.tripleten-services.com/v1",
+  headers: {
+    authorization: "09ef8b3f-9d1c-4c1f-8d18-35c5768d1784",
+    "Content-Type": "application/json",
+  },
+});
+
 function createCard(item) {
   const card = new Card(
     item,
@@ -50,7 +58,7 @@ const cardListEl = new Section(
   {
     items: initialCards,
     renderer: (data) => {
-      cardListEl.addItem(createCard(data));
+      cardListEl.addItems(createCard(data));
     },
   },
 
@@ -59,21 +67,7 @@ const cardListEl = new Section(
 
 cardListEl.renderItems();
 
-api
-  .getInitialCards()
-  .then((cards) => {
-    section = new Section(
-      {
-        items: cards,
-        renderer: renderCard,
-      },
-      ".cards__list"
-    );
-
-    section.renderItems();
-  })
-  .catch((err) => console.error(err));
-
+api;
 document.addEventListener("DOMContentLoaded", () => {
   function initialize() {
     const userInfo = new UserInfo({
@@ -143,35 +137,45 @@ function handleLikeClick(card) {
   }
 }
 
-const addCardPopup = new PopupWithForm(
-  "#add-card-modal",
-  handleAddCardFormSubmit
-);
-addCardPopup.setEventListeners();
-
-const editProfilePopup = new PopupWithForm(
-  "#profile-edit-modal",
-  handleProfileEditSubmit
-);
+const editProfilePopup = new PopupWithForm("#profile-edit-modal", (data) => {
+  return api
+    .updateUserProfile({
+      name: data.title,
+      about: data.description,
+    })
+    .then(() => {
+      userInfo.setUserInfo({
+        title: data.title,
+        description: data.description,
+      });
+    });
+});
 editProfilePopup.setEventListeners();
 
-const editAvatarModal = new ModalWithForm("#edit-avatar-modal", (formData) => {
+const addCardPopup = new PopupWithForm("#add-card-modal", (data) => {
+  const name = data.title.trim();
+  const link = data.url.trim();
+
+  return api.createCard({ name, link }).then((res) => {
+    cardListEl(res);
+  });
+});
+
+addCardPopup.setEventListeners();
+
+const editAvatarModal = new PopupWithForm("#edit-avatar-modal", (formData) => {
   const avatarUrl = formData.avatar;
-  return api
-    .updateAvatar(avatarUrl)
-    .then((userData) => {
-      userInfo.setUserAvatar(userData.avatar);
-    })
-    .catch((err) => {
-      console.error(`Error Submitting Form: ${err}`);
-    });
+  return api.updateAvatar(avatarUrl).then((userData) => {
+    userInfo.setUserAvatar(userData.avatar);
+  });
 });
 
 editAvatarButton.addEventListener("click", () => {
+  avatarFormValidator.resetValidation();
   editAvatarModal.open();
-
-  editAvatarModal.setEventListeners();
 });
+
+editAvatarModal.setEventListeners();
 
 function handleProfileEditSubmit(formData) {
   userInfo.setUserInfo({

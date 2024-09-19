@@ -8,7 +8,7 @@ export const config = {
 
 export const profileTitle = document.querySelector(".profile__title");
 export const profileDescription = document.querySelector(
-  ".profile__description"
+  "#profile-description"
 );
 
 export const profileTitleInput = document.querySelector("#profile-title-input");
