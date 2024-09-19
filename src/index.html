@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Around the U.S</title>
-    <!-- <link rel="stylesheet" href="./pages/index.css" />-->
   </head>
   <body class="page">
     <div class="page__content">
@@ -45,7 +44,7 @@
         <p class="footer__copyright">© Around The U.S</p>
       </footer>
     </div>
-
+    <!-- Add Card Modal -->
     <div class="modal" id="add-card-modal">
       <div class="modal__container">
         <button class="modal__close" id="modal-close-button"></button>
@@ -82,6 +81,7 @@
         </form>
       </div>
     </div>
+    <!-- Profile Edit Modal -->
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button class="modal__close" id="modal-close-button"></button>
@@ -116,7 +116,47 @@
         </form>
       </div>
     </div>
+    <!-- Confirmation Modal -->
+    <div class="modal" id="modal-confirm">
+      <div class="modal__container" id="confirmation-modal">
+        <button class="modal__close" id="confirmation-close"></button>
+        <h2 class="modal__heading modal__heading-confirm">Are You Sure?</h2>
+        <button
+          class="modal__save modal__button"
+          id="confirmation-modal-button"
+        >
+          Yes
+        </button>
+      </div>
+    </div>
 
+    <!-- Edit Avatar Modal -->
+    <div class="modal" id="edit-avatar-modal">
+      <div class="modal__container" id="edit-avatar-modal-container">
+        <button class="modal__close" id="edit-avatar-close"></button>
+        <h2 class="modal__heading">Change Profile Picture</h2>
+        <form class="modal__form" id="edit-avatar-form">
+          <label class="modal__label" id="edit-avatar-input">
+            <input
+              type="url"
+              class="modal__input modal__input_type_url"
+              placeholder="Image URL"
+              id="avatar-url-input"
+              name="avatar"
+              required
+            />
+            <span class="modal__error" id="avatar-url-input-error"></span>
+          </label>
+          <button
+            class="modal__button modal__save modal__button_disabled"
+            id="modal-button-avatar"
+            type="submit"
+          >
+            Save
+          </button>
+        </form>
+      </div>
+    </div>
     <div class="modal" id="preview-image-modal">
       <div class="modal__container" id="modal__preview-container">
         <button
@@ -139,7 +179,5 @@
         </div>
       </li>
     </template>
-
-    <!-- <script type="module" src="./pages/index.js"></script>-->
   </body>
 </html>

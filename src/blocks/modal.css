@@ -174,13 +174,41 @@
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
+#confirmation-modal {
+  width: 430px;
+  height: 181px;
+}
 
+#confirmation-modal-button {
+  width: 385px;
+  margin-left: 20px;
+}
+
+#modal-heading-confirm {
+  position: center;
+}
 @media screen and (max-width: 630px) {
   .modal__close {
     top: -58px;
     right: 0;
     height: 26px;
     width: 26px;
+  }
+  #modal-image {
+    width: 240px;
+    height: 299px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  #confirmation-modal-button.modal__button {
+    height: 46px !important;
+    width: 238px !important;
+  }
+  #confirmation-modal.modal__container,
+  #edit-avatar-modal-container.modal__container {
+    width: 282px;
+    height: 322px;
+    padding: 0;
   }
 }
 
