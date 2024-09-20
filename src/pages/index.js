@@ -144,7 +144,7 @@ const editProfilePopup = new PopupWithForm("#profile-edit-modal", (data) => {
       about: data.description,
     })
     .then(() => {
-      userInfo.setUserInfo({
+      UserInfo.setUserInfo({
         title: data.title,
         description: data.description,
       });
@@ -152,23 +152,24 @@ const editProfilePopup = new PopupWithForm("#profile-edit-modal", (data) => {
 });
 editProfilePopup.setEventListeners();
 
-const addCardPopup = new PopupWithForm("#add-card-modal", (data) => {
-  const name = data.title.trim();
-  const link = data.url.trim();
+const addCardPopup = new PopupWithForm("#add-card-modal", async (data) => {
+  const name = data.title();
+  const link = data.url();
 
-  return api.createCard({ name, link }).then((res) => {
-    cardListEl(res);
-  });
+  const res = await api.createCard({ name, link });
+  cardListEl(res);
 });
 
 addCardPopup.setEventListeners();
 
-const editAvatarModal = new PopupWithForm("#edit-avatar-modal", (formData) => {
-  const avatarUrl = formData.avatar;
-  return api.updateAvatar(avatarUrl).then((userData) => {
-    userInfo.setUserAvatar(userData.avatar);
-  });
-});
+const editAvatarModal = new PopupWithForm(
+  "#edit-avatar-modal",
+  async (formData) => {
+    const avatarUrl = formData.avatar;
+    const userData = await api.updateAvatar(avatarUrl);
+    UserInfoserInfo.setUserAvatar(userData.avatar);
+  }
+);
 
 editAvatarButton.addEventListener("click", () => {
   avatarFormValidator.resetValidation();
@@ -177,32 +178,15 @@ editAvatarButton.addEventListener("click", () => {
 
 editAvatarModal.setEventListeners();
 
-function handleProfileEditSubmit(formData) {
-  userInfo.setUserInfo({
-    name: formData.title,
-    description: formData.description,
-  });
-  editProfilePopup.close();
-}
-
-function handleAddCardFormSubmit(inputValues) {
-  console.log(inputValues);
-  const name = inputValues.title;
-  const link = inputValues.Url;
-  const cardData = { name, link };
-  cardListEl.addItem(createCard(cardData));
-  console.log(cardData);
-  addCardPopup.close();
-  addCardFormElement.reset();
-}
-
 profileEditButton.addEventListener("click", () => {
-  const currentUserInfo = userInfo.getUserInfo();
+  const currentUserInfo = UserInfo.getUserInfo();
   profileTitleInput.value = currentUserInfo.name;
   profileDescriptionInput.value = currentUserInfo.description;
+  editFormValidator.resetValidation();
   editProfilePopup.open();
 });
 
 addNewCardButton.addEventListener("click", () => {
+  addFormValidator.resetValidation();
   addCardPopup.open();
 });

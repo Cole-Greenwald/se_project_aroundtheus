@@ -40,7 +40,7 @@ export default class PopupWithForm extends Popup {
       const formData = this._getInputValues();
       this.renderLoading(true);
       this.disableSubmit();
-      this._handleSubmit(formData)
+      this._handleFormSubmit(formData)
         .then(() => {
           console.log(`Success:`, formData);
           this.close();
