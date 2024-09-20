@@ -83,8 +83,8 @@
   height: 26px;
   position: absolute;
   cursor: pointer;
-  top: 50%;
-  left: 50%;
+  top: 56%;
+  left: 7%;
   transform: translate(-50%, -50%);
   opacity: 0%;
   transition: opacity 0.3s linear;
@@ -99,7 +99,6 @@
   width: 430px;
   height: 272px;
 }
-
 @media screen and (max-width: 700px) {
   .profile__add-button {
     width: 50px;

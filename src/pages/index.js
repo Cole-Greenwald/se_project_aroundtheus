@@ -67,28 +67,23 @@ const cardListEl = new Section(
 
 cardListEl.renderItems();
 
-api;
-document.addEventListener("DOMContentLoaded", () => {
-  function initialize() {
-    const userInfo = new UserInfo({
-      title: ".profile__title",
-      description: ".profile__description",
-      avatarSelector: ".profile__image",
-    });
-
-    api
-      .getUserInfo()
-      .then((userData) => {
-        userInfo.setUserInfo({
-          title: userData.name,
-          description: userData.about,
-          avatar: userData.avatar,
-        });
-      })
-      .catch((err) => console.error(err));
-  }
-  initialize();
+const userInfo = new UserInfo({
+  title: ".profile__title",
+  description: ".profile__description",
+  avatarSelector: ".profile__image",
 });
+
+api
+  .getUserInfo()
+  .then((userData) => {
+    userInfo.setUserInfo({
+      title: userData.name,
+      description: userData.about,
+      avatar: userData.avatar,
+    });
+  })
+  .catch((err) => console.error(err));
+
 const cardImageModal = new PopupWithImage("#preview-image-modal");
 cardImageModal.setEventListeners();
 
@@ -97,15 +92,13 @@ function handleImageClick(cardData) {
 }
 const deleteModalConfirmation = new PopupConfirmation(
   "#modal-confirm",
-  (cardId, cardElement) => {
-    return api
-      .deleteCard(cardId)
-      .then(() => {
-        cardElement.remove();
-      })
-      .catch((err) => {
-        console.error(`Error On Card Deletion ${err}`);
-      });
+  async (cardId, cardElement) => {
+    try {
+      await api.deleteCard(cardId);
+      cardElement.remove();
+    } catch (err) {
+      console.error(`Error On Card Deletion ${err}`);
+    }
   }
 );
 
@@ -137,24 +130,24 @@ function handleLikeClick(card) {
   }
 }
 
-const editProfilePopup = new PopupWithForm("#profile-edit-modal", (data) => {
-  return api
-    .updateUserProfile({
+const editProfilePopup = new PopupWithForm(
+  "#profile-edit-modal",
+  async (data) => {
+    await api.updateUserProfile({
       name: data.title,
       about: data.description,
-    })
-    .then(() => {
-      UserInfo.setUserInfo({
-        title: data.title,
-        description: data.description,
-      });
     });
-});
+    userInfo.setUserInfo({
+      title: data.title,
+      description: data.description,
+    });
+  }
+);
 editProfilePopup.setEventListeners();
 
 const addCardPopup = new PopupWithForm("#add-card-modal", async (data) => {
-  const name = data.title();
-  const link = data.url();
+  const name = data.title;
+  const link = data.url;
 
   const res = await api.createCard({ name, link });
   cardListEl(res);
@@ -167,7 +160,7 @@ const editAvatarModal = new PopupWithForm(
   async (formData) => {
     const avatarUrl = formData.avatar;
     const userData = await api.updateAvatar(avatarUrl);
-    UserInfoserInfo.setUserAvatar(userData.avatar);
+    userInfo.setUserAvatar(userData.avatar);
   }
 );
 
@@ -179,7 +172,7 @@ editAvatarButton.addEventListener("click", () => {
 editAvatarModal.setEventListeners();
 
 profileEditButton.addEventListener("click", () => {
-  const currentUserInfo = UserInfo.getUserInfo();
+  const currentUserInfo = userInfo.getUserInfo();
   profileTitleInput.value = currentUserInfo.name;
   profileDescriptionInput.value = currentUserInfo.description;
   editFormValidator.resetValidation();
