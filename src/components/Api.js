@@ -22,13 +22,32 @@ export default class Api {
 
   //Adding a new card
   createCard(card) {
+    const requestBody = JSON.stringify({
+      name: card.name,
+      link: card.link,
+    });
+    console.log("Request Body:", requestBody);
+
     return fetch(`${this._baseUrl}/cards`, {
       headers: this._headers,
       method: "POST",
-      body: JSON.stringify(card),
-    }).then(this._handleResponse);
+      body: requestBody,
+    })
+      .then((res) => {
+        if (!res.ok) {
+          return res.text().then((text) => {
+            throw new Error(text);
+          });
+        }
+        return res.json();
+      })
+      .then((data) => {
+        console.log("Server Response:", data);
+      })
+      .catch((err) => {
+        console.error("Error Submitting Form:", err);
+      });
   }
-
   // Deleting a card
   deleteCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {

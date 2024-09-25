@@ -38,7 +38,7 @@ avatarFormValidator.enableValidation();
 const api = new Api({
   baseUrl: "https://around-api.en.tripleten-services.com/v1",
   headers: {
-    authorization: "09ef8b3f-9d1c-4c1f-8d18-35c5768d1784",
+    authorization: "05177711-40d5-4e6a-abe7-ba1645f6efc9",
     "Content-Type": "application/json",
   },
 });
@@ -145,12 +145,12 @@ const editProfilePopup = new PopupWithForm(
 );
 editProfilePopup.setEventListeners();
 
-const addCardPopup = new PopupWithForm("#add-card-modal", async (data) => {
-  const name = data.title;
-  const link = data.url;
+const addCardPopup = new PopupWithForm("#add-card-modal", async (formData) => {
+  const name = formData.title;
+  const link = formData.Url;
 
-  const res = await api.createCard({ name, link });
-  cardListEl(res);
+  const res = api.createCard({ name, link });
+  cardListEl.addItems(createCard(res));
 });
 
 addCardPopup.setEventListeners();
