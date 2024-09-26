@@ -43,9 +43,9 @@ const api = new Api({
   },
 });
 
-function createCard(item) {
+function createCard(data) {
   const card = new Card(
-    item,
+    data,
     "#card-template",
     handleImageClick,
     handleDeleteCard,
@@ -54,12 +54,27 @@ function createCard(item) {
   return card.getView();
 }
 
+function renderCard(data) {
+  const card = createCard(data);
+  cardListEl.addItems(card);
+}
+
+api
+  .getInitialCards()
+  .then((cards) => {
+    cards.forEach((data) => {
+      const card = createCard(data);
+      cardListEl.addItems(card);
+    });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
 const cardListEl = new Section(
   {
     items: initialCards,
-    renderer: (data) => {
-      cardListEl.addItems(createCard(data));
-    },
+    renderer: renderCard,
   },
 
   ".cards__list"
@@ -90,6 +105,7 @@ cardImageModal.setEventListeners();
 function handleImageClick(cardData) {
   cardImageModal.open(cardData);
 }
+
 const deleteModalConfirmation = new PopupConfirmation(
   "#modal-confirm",
   async (cardId, cardElement) => {
@@ -102,8 +118,19 @@ const deleteModalConfirmation = new PopupConfirmation(
   }
 );
 
-function handleDeleteCard(cardId, cardElement) {
-  deleteModalConfirmation.open(cardId, cardElement);
+function handleDeleteCard({ cardId, cardElement }) {
+  deleteModalConfirmation.setSubmitAction(() => {
+    api
+      .deleteCard(cardId)
+      .then(() => {
+        cardElement.remove();
+        deleteModalConfirmation.close();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  });
+  deleteModalConfirmation.open();
 }
 
 function handleLikeClick(card) {

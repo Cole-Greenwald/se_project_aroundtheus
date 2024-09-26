@@ -12,7 +12,7 @@ export default class Card {
     this._isLiked = cardData.isLiked;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
-    this.handleDeleteCard = handleDeleteCard;
+    this._handleDeleteCard = handleDeleteCard;
     this.handleLikeClick = handleLikeClick;
   }
 
