@@ -149,7 +149,7 @@ const addCardPopup = new PopupWithForm("#add-card-modal", async (formData) => {
   const name = formData.title;
   const link = formData.Url;
 
-  const res = api.createCard({ name, link });
+  const res = await api.createCard({ name, link });
   cardListEl.addItems(createCard(res));
 });
 

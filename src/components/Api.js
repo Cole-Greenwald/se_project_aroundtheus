@@ -42,6 +42,7 @@ export default class Api {
         return res.json();
       })
       .then((data) => {
+        return data;
         console.log("Server Response:", data);
       })
       .catch((err) => {
