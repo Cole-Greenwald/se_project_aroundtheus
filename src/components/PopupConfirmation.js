@@ -14,6 +14,10 @@ export default class PopupConfirmation extends Popup {
     this._cardElement = cardElement;
   }
 
+  setSubmitAction(action) {
+    this._handleFormSubmit = action;
+  }
+
   _setEventListeners() {
     super.setEventListeners();
     this._confirmButton.addEventListener("click", () => {
