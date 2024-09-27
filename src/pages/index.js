@@ -123,7 +123,7 @@ function handleDeleteCard(card) {
     api
       .deleteCard(card.getId())
       .then(() => {
-        cardElement.remove();
+        card.remove();
         deleteModalConfirmation.close();
       })
       .catch((err) => {

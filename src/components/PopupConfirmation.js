@@ -21,13 +21,7 @@ export default class PopupConfirmation extends Popup {
   _setEventListeners() {
     super.setEventListeners();
     this._confirmButton.addEventListener("click", () => {
-      this._handleConfirmation(this._cardId, this._cardElement)
-        .then(() => {
-          this.close();
-        })
-        .catch((err) => {
-          console.error("Error Deleting Card", err);
-        });
+      this._handleFormSubmit();
     });
   }
 }
