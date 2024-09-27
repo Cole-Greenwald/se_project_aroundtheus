@@ -118,10 +118,10 @@ const deleteModalConfirmation = new PopupConfirmation(
   }
 );
 
-function handleDeleteCard({ cardId, cardElement }) {
+function handleDeleteCard(card) {
   deleteModalConfirmation.setSubmitAction(() => {
     api
-      .deleteCard(cardId)
+      .deleteCard(card.getId())
       .then(() => {
         cardElement.remove();
         deleteModalConfirmation.close();
