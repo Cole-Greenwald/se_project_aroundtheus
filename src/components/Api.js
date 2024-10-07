@@ -32,22 +32,7 @@ export default class Api {
       headers: this._headers,
       method: "POST",
       body: requestBody,
-    })
-      .then((res) => {
-        if (!res.ok) {
-          return res.text().then((text) => {
-            throw new Error(text);
-          });
-        }
-        return res.json();
-      })
-      .then((data) => {
-        return data;
-        console.log("Server Response:", data);
-      })
-      .catch((err) => {
-        console.error("Error Submitting Form:", err);
-      });
+    }).then(this._handleResponse);
   }
   // Deleting a card
   deleteCard(cardId) {
@@ -59,10 +44,11 @@ export default class Api {
 
   // Adding and removing likes
   likeCard(cardId) {
-    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       headers: this._headers,
       method: "PUT",
-    }).then(this._handleResponse);
+    });
+    return this._handleResponse();
   }
 
   dislikeCard(cardId) {
@@ -74,20 +60,22 @@ export default class Api {
 
   // Edit Info
   //Loading user information from the server
-  getUserInfo() {
-    return fetch(`${this._baseUrl}/users/me`, {
+  async getUserInfo() {
+    const res = await fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "GET",
-    }).then(this._handleResponse);
+    });
+    return this._handleResponse(res);
   }
 
   // Editing the profile
-  updateUserProfile(userData) {
-    return fetch(`${this._baseUrl}/users/me`, {
+  async updateUserProfile(userData) {
+    const res = await fetch(`${this._baseUrl}/users/me`, {
       headers: this._headers,
       method: "PATCH",
       body: JSON.stringify(userData),
-    }).then(this._handleResponse);
+    });
+    return this._handleResponse(res);
   }
 
   // Updating profile picture
