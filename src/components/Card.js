@@ -20,7 +20,7 @@ export default class Card {
     this._cardElement
       .querySelector(".card__like-button")
       .addEventListener("click", () => {
-        this._handleLikeIcon();
+        this._handleLikeIcon(this);
       });
 
     this._cardElement
@@ -30,9 +30,9 @@ export default class Card {
       });
 
     this._cardElement
-      .querySelector(".card__image")
+      .querySelector(".card__like-button")
       .addEventListener("click", () => {
-        this._handleImageClick({ name: this._name, link: this._link });
+        this.handleLikeClick(this);
       });
   }
 

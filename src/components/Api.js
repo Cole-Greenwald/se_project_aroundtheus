@@ -44,11 +44,10 @@ export default class Api {
 
   // Adding and removing likes
   likeCard(cardId) {
-    fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       headers: this._headers,
       method: "PUT",
-    });
-    return this._handleResponse();
+    }).then(this._handleResponse);
   }
 
   dislikeCard(cardId) {
