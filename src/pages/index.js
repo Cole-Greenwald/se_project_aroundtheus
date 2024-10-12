@@ -131,13 +131,11 @@ function handleDeleteCard(card) {
 function handleLikeClick(card) {
   if (card.isLiked) {
     api.dislikeCard(card._id).then(() => {
-      card.setIsLiked();
-      card.isLiked = false;
+      card.setIsLiked(false);
     });
   } else {
     api.likeCard(card._id).then(() => {
-      card.setIsLiked();
-      card.isLiked = true;
+      card.setIsLiked(true);
     });
   }
 }

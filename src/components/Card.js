@@ -57,9 +57,13 @@ export default class Card {
   }
   renderLikeIcon() {
     if (this._isLiked) {
-      classList.add("card__like-button_active");
+      this._cardElement
+        .querySelector(".card__like-button")
+        .classList.add("card__like-button_active");
     } else {
-      classList.remove("card__like-button_active");
+      this._cardElement
+        .querySelector(".card__like-button")
+        .classList.remvoe("card__like-button_active");
     }
   }
 
@@ -83,6 +87,7 @@ export default class Card {
     this._cardElement.querySelector(".card__title").textContent = this._name;
 
     this._setEventListeners();
+    this.renderLikeIcon();
     return this._cardElement;
   }
 }
