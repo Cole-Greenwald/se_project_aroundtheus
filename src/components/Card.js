@@ -63,7 +63,7 @@ export default class Card {
     } else {
       this._cardElement
         .querySelector(".card__like-button")
-        .classList.remvoe("card__like-button_active");
+        .classList.remove("card__like-button_active");
     }
   }
 
