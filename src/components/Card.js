@@ -52,11 +52,15 @@ export default class Card {
   }
 
   setIsLiked(isLiked) {
-    this._isLiked = isLiked;
-    this.renderLikeIcon();
+    if (setIsLiked == true) {
+      this._setIsLiked = isLiked;
+    }
+    if (this._isLiked) {
+      this.renderLikeIcon();
+    }
   }
   renderLikeIcon() {
-    if (this._isLiked) {
+    if (this._setIsLiked) {
       this._cardElement
         .querySelector(".card__like-button")
         .classList.add("card__like-button_active");
@@ -66,7 +70,6 @@ export default class Card {
         .classList.remove("card__like-button_active");
     }
   }
-
   handleLikeButton(isLiked) {
     if (isLiked !== undefined) {
       this._isLiked = isLiked;
@@ -75,7 +78,6 @@ export default class Card {
       this.toggleLike();
     }
   }
-
   getView() {
     this._cardElement = document
       .querySelector(this._cardSelector)
