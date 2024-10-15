@@ -52,7 +52,7 @@ export default class Card {
   }
 
   setIsLiked(isLiked) {
-    if (setIsLiked == true) {
+    if (setIsLiked !== undefined) {
       this._setIsLiked = isLiked;
     }
     if (this._isLiked) {
@@ -68,14 +68,6 @@ export default class Card {
       this._cardElement
         .querySelector(".card__like-button")
         .classList.remove("card__like-button_active");
-    }
-  }
-  handleLikeButton(isLiked) {
-    if (isLiked !== undefined) {
-      this._isLiked = isLiked;
-    }
-    if (this._isLiked) {
-      this.toggleLike();
     }
   }
   getView() {

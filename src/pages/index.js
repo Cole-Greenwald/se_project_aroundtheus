@@ -130,14 +130,18 @@ function handleDeleteCard(card) {
 
 function handleLikeClick(card) {
   if (card._setIsLiked) {
-    //using is liked
     api.dislikeCard(card._id).then(() => {
       card.setIsLiked(false);
     });
   } else {
-    api.likeCard(card._id).then(() => {
-      card.setIsLiked(true);
-    });
+    api
+      .likeCard(card._id)
+      .then(() => {
+        card.setIsLiked(true);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 }
 
@@ -148,10 +152,14 @@ const editProfilePopup = new PopupWithForm(
       name: data.title,
       about: data.description,
     });
-    userInfo.setUserInfo({
-      title: data.title,
-      description: data.description,
-    });
+    userInfo
+      .setUserInfo({
+        title: data.title,
+        description: data.description,
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 );
 editProfilePopup.setEventListeners();
@@ -161,7 +169,9 @@ const addCardPopup = new PopupWithForm("#add-card-modal", async (formData) => {
   const link = formData.Url;
 
   const res = await api.createCard({ name, link });
-  cardListEl.addItems(createCard(res));
+  cardListEl.addItems(createCard(res)).catch((err) => {
+    console.error(err);
+  });
 });
 
 addCardPopup.setEventListeners();
@@ -171,7 +181,9 @@ const editAvatarModal = new PopupWithForm(
   async (formData) => {
     const avatarUrl = formData.avatar;
     const userData = await api.updateAvatar(avatarUrl);
-    userInfo.setUserAvatar(userData.avatar);
+    userInfo.setUserAvatar(userData.avatar).catch((err) => {
+      console.error(err);
+    });
   }
 );
 
