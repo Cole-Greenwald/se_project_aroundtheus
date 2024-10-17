@@ -8,7 +8,7 @@ export const config = {
 
 export const profileTitle = document.querySelector(".profile__title");
 export const profileDescription = document.querySelector(
-  ".profile__description"
+  "#profile-description"
 );
 
 export const profileTitleInput = document.querySelector("#profile-title-input");
@@ -21,6 +21,8 @@ export const profileEditForm = profileEditModal.querySelector(".modal__form");
 export const addCardModal = document.querySelector("#add-card-modal");
 export const addCardFormElement = addCardModal.querySelector(".modal__form");
 export const profileEditButton = document.querySelector("#profile-edit-button");
+export const editAvatarButton = document.querySelector(".avatar__edit-icon");
+export const avatarEditForm = document.forms["edit-avatar-form"];
 export const profileModalCloseButton = profileEditModal.querySelector(
   "#modal-close-button"
 );
