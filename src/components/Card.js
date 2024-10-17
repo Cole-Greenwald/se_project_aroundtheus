@@ -9,7 +9,7 @@ export default class Card {
     this._name = cardData.name;
     this._link = cardData.link;
     this._id = cardData._id;
-    this._setIsLiked = cardData.isLiked;
+    this.setIsLiked = cardData.isLiked;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this.handleDeleteCard = handleDeleteCard;
@@ -52,15 +52,11 @@ export default class Card {
   }
 
   setIsLiked(isLiked) {
-    if (setIsLiked !== undefined) {
-      this._setIsLiked = isLiked;
-    }
-    if (this._isLiked) {
-      this.renderLikeIcon();
+    if (setIsLiked !== true) {
     }
   }
   renderLikeIcon() {
-    if (this._setIsLiked) {
+    if (this.setIsLiked) {
       this._cardElement
         .querySelector(".card__like-button")
         .classList.add("card__like-button_active");

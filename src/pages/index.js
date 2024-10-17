@@ -129,16 +129,12 @@ function handleDeleteCard(card) {
 }
 
 function handleLikeClick(card) {
-  if (card._setIsLiked) {
-    api.dislikeCard(card._id).then(() => {
-      card.setIsLiked(false);
-    });
+  if (card.setIsLiked) {
+    api.dislikeCard(card._id).then(() => {});
   } else {
     api
       .likeCard(card._id)
-      .then(() => {
-        card.setIsLiked(true);
-      })
+      .then(() => {})
       .catch((err) => {
         console.error(err);
       });
@@ -169,9 +165,7 @@ const addCardPopup = new PopupWithForm("#add-card-modal", async (formData) => {
   const link = formData.Url;
 
   const res = await api.createCard({ name, link });
-  cardListEl.addItems(createCard(res)).catch((err) => {
-    console.error(err);
-  });
+  cardListEl.addItems(createCard(res));
 });
 
 addCardPopup.setEventListeners();
