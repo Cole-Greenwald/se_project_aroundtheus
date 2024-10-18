@@ -148,14 +148,10 @@ const editProfilePopup = new PopupWithForm(
       name: data.title,
       about: data.description,
     });
-    userInfo
-      .setUserInfo({
-        title: data.title,
-        description: data.description,
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    userInfo.setUserInfo({
+      title: data.title,
+      description: data.description,
+    });
   }
 );
 editProfilePopup.setEventListeners();
