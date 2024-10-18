@@ -74,6 +74,12 @@
   font-weight: 400;
   line-height: 17px;
   font-family: Inter, Arial, sans-serif;
+  width: 100%;
+}
+
+.modal__label {
+  position: relative;
+  width: 100%;
 }
 
 .modal__input_type_error {
@@ -174,6 +180,52 @@
   background-color: transparent;
   border: 1px solid rgba(0, 0, 0, 0.2);
 }
+#modal-title {
+  font-family: "Inter", Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #fff;
+  margin: 10px 0 0 0;
+}
+#confirmation-modal {
+  width: 430px;
+  height: 181px;
+  padding: 0px;
+}
+
+#confirmation-modal-button {
+  width: 358px;
+  height: 50px;
+  margin: 38px 36px 36px;
+  padding: 0;
+}
+
+.modal__heading-confirm {
+  width: 358px;
+  height: 23px;
+  margin: 34px 36px 0 36px;
+}
+
+#edit-avatar-heading {
+  width: 330px;
+  height: 23px;
+  margin: 34px 64px 0 36px;
+}
+#edit-avatar-modal-container {
+  width: 430px;
+  height: 272px;
+  padding: 0;
+}
+#modal-button-avatar {
+  width: 358px;
+  height: 50px;
+  margin: 0 36px;
+}
+#avatar-url-input {
+  width: 358px;
+  height: 27px;
+  margin: 54px 36px 48px;
+}
 
 @media screen and (max-width: 630px) {
   .modal__close {
@@ -181,6 +233,22 @@
     right: 0;
     height: 26px;
     width: 26px;
+  }
+  #modal-image {
+    width: 240px;
+    height: 299px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+  #confirmation-modal-button.modal__button {
+    height: 46px !important;
+    width: 238px !important;
+  }
+  #confirmation-modal.modal__container,
+  #edit-avatar-modal-container.modal__container {
+    width: 282px;
+    height: 322px;
+    padding: 0;
   }
 }
 
