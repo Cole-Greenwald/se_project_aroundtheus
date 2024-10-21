@@ -58,25 +58,24 @@ function renderCard(data) {
   const card = createCard(data);
   cardListEl.addItems(card);
 }
-
-api.getInitialCards().then((cards) => {
-  cards.forEach((data) => {
-    const card = createCard(data);
-    cardListEl.addItems(card);
-  });
-});
+api
+  .getInitialCards()
+  .then((cards) => {
+    cards.forEach((data) => {
+      const card = createCard(data);
+      cardListEl.addItems(card);
+    });
+  })
+  .catch(console.error);
 
 const cardListEl = new Section(
   {
     items: initialCards,
     renderer: renderCard,
   },
-
   ".cards__list"
 );
-
 cardListEl.renderItems();
-
 const userInfo = new UserInfo({
   title: ".profile__title",
   description: ".profile__description",
@@ -130,7 +129,12 @@ function handleDeleteCard(card) {
 
 function handleLikeClick(card) {
   if (card.setIsLiked) {
-    api.dislikeCard(card._id).then(() => {});
+    api
+      .dislikeCard(card._id)
+      .then(() => {
+        card.handleLikeIcon(); // here
+      })
+      .catch(console.error);
   } else {
     api
       .likeCard(card._id)
