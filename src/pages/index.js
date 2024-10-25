@@ -59,11 +59,10 @@ function renderItems(items) {
     this._renderer(item);
   });
 }
+let cardSection;
 api
   .getInitialCards()
   .then((cards) => {
-    let cardSection; // Declare cardSection in an accessible scope
-
     // Initialize cardSection before using it
     cardSection = new Section(
       {
@@ -86,7 +85,13 @@ const addCardPopup = new PopupWithForm("#add-card-modal", async (formData) => {
 
   const res = await api.createCard({ name, link });
   cardSection.addItem(createCard(res)); // Use here after initialization
+
+  addNewCardButton.addEventListener("click", () => {
+    addFormValidator._disableSubmitButton();
+    addCardPopup.open();
+  });
 });
+
 addCardPopup.setEventListeners();
 
 const userInfo = new UserInfo({
@@ -145,13 +150,16 @@ function handleLikeClick(card) {
     api
       .dislikeCard(card._id)
       .then(() => {
-        card.handleLikeIcon(); // here
+        card.handleLikeIcon();
       })
       .catch(console.error);
   } else {
     api
       .likeCard(card._id)
-      .then(() => {})
+      .then(() => {
+        card.handleLikeIcon();
+      })
+
       .catch((err) => {
         console.error(err);
       });
@@ -183,7 +191,7 @@ const editAvatarModal = new PopupWithForm(
 );
 
 editAvatarButton.addEventListener("click", () => {
-  editAvatarButton.resetValidation();
+  avatarFormValidator.resetValidation();
   editAvatarModal.open();
 });
 
