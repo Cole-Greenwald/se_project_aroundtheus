@@ -54,28 +54,29 @@ function createCard(data) {
   return card.getView();
 }
 
-function renderCard(data) {
-  const card = createCard(data);
-  cardListEl.addItems(card);
+function renderItems(items) {
+  items.forEach((item) => {
+    this._renderer(item);
+  });
 }
 api
   .getInitialCards()
   .then((cards) => {
-    cards.forEach((data) => {
-      const card = createCard(data);
-      cardListEl.addItems(card);
-    });
+    const cardSection = new Section(
+      {
+        items: cards,
+        renderer: (item) => {
+          const card = createCard(item);
+          cardSection.addItem(card);
+        },
+      },
+      ".cards__list"
+    );
+
+    cardSection.renderItems();
   })
   .catch(console.error);
 
-const cardListEl = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  ".cards__list"
-);
-cardListEl.renderItems();
 const userInfo = new UserInfo({
   title: ".profile__title",
   description: ".profile__description",
@@ -160,12 +161,23 @@ const editProfilePopup = new PopupWithForm(
 );
 editProfilePopup.setEventListeners();
 
+const cardSection = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = createCard(item);
+      cardSection.addItem(card);
+    },
+  },
+  ".cards__list"
+);
+
 const addCardPopup = new PopupWithForm("#add-card-modal", async (formData) => {
   const name = formData.title;
   const link = formData.Url;
 
   const res = await api.createCard({ name, link });
-  cardListEl.addItems(createCard(res));
+  cardSection.addItem(createCard(res));
 });
 
 addCardPopup.setEventListeners();
@@ -175,9 +187,7 @@ const editAvatarModal = new PopupWithForm(
   async (formData) => {
     const avatarUrl = formData.avatar;
     const userData = await api.updateAvatar(avatarUrl);
-    userInfo.setUserAvatar(userData.avatar).catch((err) => {
-      console.error(err);
-    });
+    userInfo.setUserAvatar(userData.avatar);
   }
 );
 

@@ -167,7 +167,8 @@
 }
 
 .modal__error:last-of-type {
-  bottom: calc(32%);
+  bottom: calc(25%);
+  left: 35px;
 }
 
 .modal__error_visible {
