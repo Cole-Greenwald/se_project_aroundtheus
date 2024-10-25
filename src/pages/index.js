@@ -62,9 +62,12 @@ function renderItems(items) {
 api
   .getInitialCards()
   .then((cards) => {
-    const cardSection = new Section(
+    let cardSection; // Declare cardSection in an accessible scope
+
+    // Initialize cardSection before using it
+    cardSection = new Section(
       {
-        items: cards,
+        items: initialCards,
         renderer: (item) => {
           const card = createCard(item);
           cardSection.addItem(card);
@@ -76,6 +79,15 @@ api
     cardSection.renderItems();
   })
   .catch(console.error);
+
+const addCardPopup = new PopupWithForm("#add-card-modal", async (formData) => {
+  const name = formData.title;
+  const link = formData.Url;
+
+  const res = await api.createCard({ name, link });
+  cardSection.addItem(createCard(res)); // Use here after initialization
+});
+addCardPopup.setEventListeners();
 
 const userInfo = new UserInfo({
   title: ".profile__title",
@@ -161,27 +173,6 @@ const editProfilePopup = new PopupWithForm(
 );
 editProfilePopup.setEventListeners();
 
-const cardSection = new Section(
-  {
-    items: initialCards,
-    renderer: (item) => {
-      const card = createCard(item);
-      cardSection.addItem(card);
-    },
-  },
-  ".cards__list"
-);
-
-const addCardPopup = new PopupWithForm("#add-card-modal", async (formData) => {
-  const name = formData.title;
-  const link = formData.Url;
-
-  const res = await api.createCard({ name, link });
-  cardSection.addItem(createCard(res));
-});
-
-addCardPopup.setEventListeners();
-
 const editAvatarModal = new PopupWithForm(
   "#edit-avatar-modal",
   async (formData) => {
@@ -192,6 +183,7 @@ const editAvatarModal = new PopupWithForm(
 );
 
 editAvatarButton.addEventListener("click", () => {
+  editAvatarButton.resetValidation();
   editAvatarModal.open();
 });
 
