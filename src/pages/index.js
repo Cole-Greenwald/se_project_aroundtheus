@@ -66,7 +66,7 @@ api
     // Initialize cardSection before using it
     cardSection = new Section(
       {
-        items: initialCards,
+        items: cards,
         renderer: (item) => {
           const card = createCard(item);
           cardSection.addItem(card);
@@ -152,6 +152,7 @@ function handleLikeClick(card) {
       .then(() => {
         card.handleLikeIcon();
       })
+
       .catch(console.error);
   } else {
     api
