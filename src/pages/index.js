@@ -85,11 +85,6 @@ const addCardPopup = new PopupWithForm("#add-card-modal", async (formData) => {
 
   const res = await api.createCard({ name, link });
   cardSection.addItem(createCard(res)); // Use here after initialization
-
-  addNewCardButton.addEventListener("click", () => {
-    addFormValidator._disableSubmitButton();
-    addCardPopup.open();
-  });
 });
 
 addCardPopup.setEventListeners();
@@ -208,4 +203,5 @@ profileEditButton.addEventListener("click", () => {
 
 addNewCardButton.addEventListener("click", () => {
   addCardPopup.open();
+  addFormValidator.resetValidation();
 });
